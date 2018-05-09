@@ -8,12 +8,14 @@ public class materia {
     private String fechaDeCreacion;
     private String nombreCreador;
     private String imagen;
+    private String descripcion;
 
-    public materia(String n, String f, String nC, String i){
+    public materia(String n, String f, String nC, String i, String d){
         this.nombre=n;
         this.fechaDeCreacion=f;
         this.nombreCreador=nC;
         this.imagen=i;
+        this.descripcion=d;
     }
 
 
@@ -55,6 +57,7 @@ public class materia {
         values.put(materiaContract.materiaEntry.FECHACREACION, fechaDeCreacion);
         values.put(materiaContract.materiaEntry.NOMBRECREADOR, nombreCreador);
         values.put(materiaContract.materiaEntry.IMAGEN, imagen);
+        values.put(materiaContract.materiaEntry.DESCRIPCION, descripcion);
         return values;
     }
 }

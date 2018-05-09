@@ -12,5 +12,6 @@ public class materiaContract {
         public static final String FECHACREACION = "fechaDeCreacion";
         public static final String NOMBRECREADOR= "nombreCreador";
         public static final String IMAGEN = "imagen";
+        public static final String DESCRIPCION = "descripcion";
     }
 }
