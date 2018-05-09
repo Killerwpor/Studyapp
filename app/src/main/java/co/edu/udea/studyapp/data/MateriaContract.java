@@ -2,7 +2,7 @@ package co.edu.udea.studyapp.data;
 
 import android.provider.BaseColumns;
 
-public class materiaContract {
+public class MateriaContract {
 
     public static abstract class materiaEntry implements BaseColumns {
         public static final String TABLE_NAME = "Materia";

@@ -133,6 +133,18 @@ public class MainActivity extends AppCompatActivity
         fecha = "08/05/2018";
         apunte = new Apunte(materia, titulo, descripcion, fecha);
         apuntesPreview.add(apunte);
+        materia = "Proyecto Integrador";
+        titulo = "Artículo";
+        descripcion = "Avanzar en el artículo, buscar referencias";
+        fecha = "09/05/2018";
+        apunte = new Apunte(materia, titulo, descripcion, fecha);
+        apuntesPreview.add(apunte);
+        materia = "Inglés";
+        titulo = "Ensayo";
+        descripcion = "Completar el ensayo.";
+        fecha = "11/05/2018";
+        apunte = new Apunte(materia, titulo, descripcion, fecha);
+        apuntesPreview.add(apunte);
     }
 
     private void actualizarApuntes() {
@@ -143,7 +155,7 @@ public class MainActivity extends AppCompatActivity
                 adaptadorApunte = new RecyclerViewAdapterApunte(apuntesPreview);
                 recyclerViewApunte.setAdapter(adaptadorApunte);
             };
-        }, 1000);
+        }, 500);
     }
 
 }

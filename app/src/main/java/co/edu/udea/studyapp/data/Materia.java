@@ -2,7 +2,7 @@ package co.edu.udea.studyapp.data;
 
 import android.content.ContentValues;
 
-public class materia {
+public class Materia {
 
     private String nombre;
     private String fechaDeCreacion;
@@ -10,7 +10,7 @@ public class materia {
     private String imagen;
     private String descripcion;
 
-    public materia(String n, String f, String nC, String i, String d){
+    public Materia(String n, String f, String nC, String i, String d){
         this.nombre=n;
         this.fechaDeCreacion=f;
         this.nombreCreador=nC;
@@ -53,11 +53,11 @@ public class materia {
 
     public ContentValues toContentValues() {
         ContentValues values = new ContentValues();
-        values.put(materiaContract.materiaEntry.NOMBRE, nombre);
-        values.put(materiaContract.materiaEntry.FECHACREACION, fechaDeCreacion);
-        values.put(materiaContract.materiaEntry.NOMBRECREADOR, nombreCreador);
-        values.put(materiaContract.materiaEntry.IMAGEN, imagen);
-        values.put(materiaContract.materiaEntry.DESCRIPCION, descripcion);
+        values.put(MateriaContract.materiaEntry.NOMBRE, nombre);
+        values.put(MateriaContract.materiaEntry.FECHACREACION, fechaDeCreacion);
+        values.put(MateriaContract.materiaEntry.NOMBRECREADOR, nombreCreador);
+        values.put(MateriaContract.materiaEntry.IMAGEN, imagen);
+        values.put(MateriaContract.materiaEntry.DESCRIPCION, descripcion);
         return values;
     }
 }
