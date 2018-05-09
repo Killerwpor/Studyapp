@@ -103,7 +103,6 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_grupos) {
             intent = new Intent (getApplicationContext(), LoginActivity.class);
-            startActivity(intent);
         } else if (id == R.id.nav_perfil) {
             intent = new Intent(getApplicationContext(), PerfilActivity.class);
         } else if (id == R.id.nav_configuracion) {
