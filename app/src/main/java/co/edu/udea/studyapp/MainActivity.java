@@ -108,8 +108,6 @@ public class MainActivity extends AppCompatActivity
             intent = new Intent(getApplicationContext(), PerfilActivity.class);
         } else if (id == R.id.nav_configuracion) {
             intent = new Intent (getApplicationContext(), MateriaEspecificaActivity.class);
-            startActivity(intent);
-
         } else if (id == R.id.nav_cerrar_sesion) {
 
         }
