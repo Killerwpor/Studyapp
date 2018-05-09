@@ -94,23 +94,25 @@ public class MainActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
+        
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-            Intent intent = new Intent (getApplicationContext(), Login.class);
+        Intent intent = null;
+
+        if (id == R.id.nav_materias) {
+
+        } else if (id == R.id.nav_grupos) {
+            intent = new Intent (getApplicationContext(), LoginActivity.class);
+        } else if (id == R.id.nav_perfil) {
+            intent = new Intent(getApplicationContext(), PerfilActivity.class);
+        } else if (id == R.id.nav_configuracion) {
+
+        } else if (id == R.id.nav_cerrar_sesion) {
+
+        }
+
+        if(intent != null){
             startActivity(intent);
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
