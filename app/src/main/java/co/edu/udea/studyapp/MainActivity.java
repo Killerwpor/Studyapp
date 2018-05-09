@@ -1,4 +1,4 @@
-package com.example.johan.studyapp;
+package co.edu.udea.studyapp;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
