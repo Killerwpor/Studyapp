@@ -9,39 +9,19 @@
     tools:showIn="@layout/app_bar_main">
 
     <LinearLayout
-        android:id="@+id/linear_layout_materias_preview"
+        android:id="@+id/content_main_linear_layout_materias_preview"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/linear_layout_grupos_preview"
+        app:layout_constraintBottom_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <Button
-            android:id="@+id/button"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/content_main_recycler_preview"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Button" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linear_layout_grupos_preview"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linear_layout_materias_preview">
-
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Button" />
+            android:layout_height="match_parent" />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

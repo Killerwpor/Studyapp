@@ -1,8 +1,12 @@
 package co.edu.udea.studyapp;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,8 +17,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import co.edu.udea.studyapp.data.Apunte;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private RecyclerView recyclerViewApunte;
+    private RecyclerViewAdapterApunte adaptadorApunte;
+    private List<Apunte> apuntesPreview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,11 +36,13 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        recyclerViewApunte = findViewById(R.id.content_main_recycler_preview);
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, apuntesPreview.get(0).getMateria(), Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
@@ -40,6 +55,8 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        actualizarApuntes();
     }
 
     @Override
@@ -98,4 +115,28 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    private void obtenerApuntesPreview(){
+        Apunte apunte;
+        String materia, titulo, descripcion, fecha;
+        apuntesPreview = new ArrayList<>();
+        materia = "Computación Móvil";
+        titulo = "Proyecto";
+        descripcion = "Login con Facebook y CardView de los preview realizados.";
+        fecha = "08/05/2018";
+        apunte = new Apunte(materia, titulo, descripcion, fecha);
+        apuntesPreview.add(apunte);
+    }
+
+    private void actualizarApuntes() {
+        obtenerApuntesPreview();
+        new Handler().postDelayed(new Runnable(){
+            public void run(){
+                recyclerViewApunte.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                adaptadorApunte = new RecyclerViewAdapterApunte(apuntesPreview);
+                recyclerViewApunte.setAdapter(adaptadorApunte);
+            };
+        }, 1000);
+    }
+
 }
