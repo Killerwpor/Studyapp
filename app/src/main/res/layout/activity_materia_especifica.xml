@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="co.edu.udea.studyapp.MateriaEspecificaActivity">
+    <com.sickmartian.calendarview.MonthView
+        xmlns:calendar_view="http://schemas.android.com/apk/res-auto"
+        calendar_view:textSize="8sp"
+        calendar_view:activeTextColor="@color/colorPrimaryDark"
+        calendar_view:inactiveTextColor="@color/md_green_100"
+        calendar_view:activeBackgroundColor="@color/cardview_shadow_end_color"
+        calendar_view:selectedBackgroundColor="@color/md_pink_100"
+        calendar_view:inactiveBackgroundColor="@color/cardview_dark_background"
+        calendar_view:currentDayDecorationDrawable="@color/md_black_1000"
+        calendar_view:currentDayDecorationSize="16dp"
+        calendar_view:currentDayTextColor="@color/com_facebook_button_text_color"
+        calendar_view:showOverflow="false"
+        calendar_view:separateDaysVertically="true"
+        calendar_view:overflowColor="@color/md_yellow_100"
+        calendar_view:overflowHeight="2dp"
+        calendar_view:separatorColor="@color/md_light_green_600"
+        android:id="@+id/monthView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</android.support.constraint.ConstraintLayout>
