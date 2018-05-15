@@ -14,4 +14,7 @@
     <string name="navigation_drawer_perfil">Perfil</string>
     <string name="navigation_drawer_configuracion">Configuración</string>
     <string name="navigation_drawer_cerrar_sesion">Cerrar Sesión</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

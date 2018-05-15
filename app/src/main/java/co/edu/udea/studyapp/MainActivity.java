@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_configuracion) {
             intent = new Intent (getApplicationContext(), MateriaEspecificaActivity.class);
         } else if (id == R.id.nav_cerrar_sesion) {
-
+            intent = new Intent (getApplicationContext(), ConfiguracionActivity.class);
         }
 
         if(intent != null){

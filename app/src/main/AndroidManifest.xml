@@ -3,6 +3,9 @@
     package="co.edu.udea.studyapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-feature android:name="android.hardware.camera" />
+
 
     <application
         android:allowBackup="true"
@@ -51,8 +54,9 @@
         <activity android:name=".RegistroActivity" />
         <activity
             android:name=".MateriaEspecificaActivity"
-            android:label="Computación movil"></activity>
-        <activity android:name=".GruposActivity"></activity>
+            android:label="Computación movil" />
+        <activity android:name=".GruposActivity" />
+        <activity android:name=".ConfiguracionActivity"></activity>
     </application>
 
 </manifest>
