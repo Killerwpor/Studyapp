@@ -169,7 +169,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_configuracion) {
             intent = new Intent (getApplicationContext(), ApuntesActivity.class);
         } else if (id == R.id.nav_cerrar_sesion) {
-            intent = new Intent (getApplicationContext(), MateriaPrincipalActivity.class);
+            intent = new Intent (getApplicationContext(), LoginActivity.class);
         }
 
         if(intent != null){

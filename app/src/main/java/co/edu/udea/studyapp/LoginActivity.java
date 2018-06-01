@@ -10,6 +10,8 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -31,6 +33,17 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         botonLogin=findViewById(R.id.login_button);
         callbackManager = CallbackManager.Factory.create();
+
+        TextView textView5 = findViewById(R.id.textView5);
+        TextView textView6 = findViewById(R.id.textView6);
+        EditText editText = findViewById(R.id.editText);
+        EditText editText2 = findViewById(R.id.editText2);
+
+        FontManager fontManager = new FontManager();
+        fontManager.changeFont2(textView5, "RobotoCondensed-Bold", getApplicationContext());
+        fontManager.changeFont2(textView6, "RobotoCondensed-Light", getApplicationContext());
+        fontManager.changeFont2(editText, "RobotoCondensed-Light", getApplicationContext());
+        fontManager.changeFont2(editText2, "RobotoCondensed-Light", getApplicationContext());
 
         botonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
