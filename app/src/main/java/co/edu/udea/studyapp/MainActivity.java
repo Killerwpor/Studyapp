@@ -1,12 +1,22 @@
 package co.edu.udea.studyapp;
 
+import android.Manifest;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -20,14 +30,21 @@ import android.view.MenuItem;
 import java.util.ArrayList;
 import java.util.List;
 
-import co.edu.udea.studyapp.data.Apunte;
+
+import co.edu.udea.studyapp.data.Materia;
+import co.edu.udea.studyapp.data.MateriaContract;
+import co.edu.udea.studyapp.data.dbHelper;
+import pl.tajchert.nammu.PermissionListener;
+
+
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private FloatingActionButton botonAgregar,botonEliminar;
     private RecyclerView recyclerViewApunte;
     private RecyclerViewAdapterApunte adaptadorApunte;
-    private List<Apunte> apuntesPreview;
+    private List<Materia> listaMaterias;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,15 +54,36 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         recyclerViewApunte = findViewById(R.id.content_main_recycler_preview);
+       botonAgregar=findViewById(R.id.botonAgregar);
+       botonEliminar=findViewById(R.id.botonEliminar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+
+
+        botonAgregar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, apuntesPreview.get(0).getMateria(), Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent intent = new Intent (getApplicationContext(), MateriasActivity.class);
+                startActivityForResult(intent,1);
+                actualizarApuntes();
+
             }
         });
+
+
+
+
+
+
+        botonEliminar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                actualizarApuntes();
+            }
+        });
+
+
+
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -56,8 +94,26 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        actualizarApuntes();
+
+        //aquí se actualiza la lista de materias que aparece en el main
+      actualizarApuntes();
+
+        //Aquí se piden permisos para usar la camara
+
+        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA)
+                == PackageManager.PERMISSION_DENIED){
+            ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.CAMERA}, 0);
+        }
+
+
+
+
+
     }
+
+
+
+
 
     @Override
     public void onBackPressed() {
@@ -68,6 +124,10 @@ public class MainActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
+
+
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -100,7 +160,7 @@ public class MainActivity extends AppCompatActivity
         Intent intent = null;
 
         if (id == R.id.nav_materias) {
-
+            intent = new Intent (getApplicationContext(), MainActivity.class);
         } else if (id == R.id.nav_grupos) {
             intent = new Intent (getApplicationContext(), LoginActivity.class);
         } else if (id == R.id.nav_perfil) {
@@ -120,28 +180,25 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    private void obtenerApuntesPreview(){
-        Apunte apunte;
-        String materia, titulo, descripcion, fecha;
-        apuntesPreview = new ArrayList<>();
-        materia = "Computación Móvil";
-        titulo = "Proyecto";
-        descripcion = "Login con Facebook y CardView de los preview realizados.";
-        fecha = "08/05/2018";
-        apunte = new Apunte(materia, titulo, descripcion, fecha);
-        apuntesPreview.add(apunte);
-        materia = "Proyecto Integrador";
-        titulo = "Artículo";
-        descripcion = "Avanzar en el artículo, buscar referencias";
-        fecha = "09/05/2018";
-        apunte = new Apunte(materia, titulo, descripcion, fecha);
-        apuntesPreview.add(apunte);
-        materia = "Inglés";
-        titulo = "Ensayo";
-        descripcion = "Completar el ensayo.";
-        fecha = "11/05/2018";
-        apunte = new Apunte(materia, titulo, descripcion, fecha);
-        apuntesPreview.add(apunte);
+    private void obtenerApuntesPreview() {
+
+        listaMaterias = new ArrayList<>();
+        dbHelper db = new dbHelper(getApplicationContext());
+        String nombre, fecha, nombreCreador, imagen, descripcion;
+        Uri fotoUri;
+        Cursor c = db.obtenerTodasLasMaterias();
+        Materia ma;
+        while (c.moveToNext()) { //se obtiene nombre, precio, foto e ingredientes por registro, por eso esta en un while
+            nombre = c.getString(c.getColumnIndex(MateriaContract.materiaEntry.NOMBRE));
+            fecha = c.getString(c.getColumnIndex(MateriaContract.materiaEntry.FECHACREACION));
+            imagen = c.getString(c.getColumnIndex(MateriaContract.materiaEntry.IMAGEN));
+            descripcion = c.getString(c.getColumnIndex(MateriaContract.materiaEntry.DESCRIPCION));
+            // fotoUri = Uri.parse(foto); //se convierte la foto a Uri
+            nombreCreador = c.getString(c.getColumnIndex(MateriaContract.materiaEntry.NOMBRECREADOR));
+            ma = new Materia(nombre, fecha, nombreCreador, imagen, descripcion);
+            listaMaterias.add(ma);
+
+        }
     }
 
     private void actualizarApuntes() {
@@ -149,10 +206,26 @@ public class MainActivity extends AppCompatActivity
         new Handler().postDelayed(new Runnable(){
             public void run(){
                 recyclerViewApunte.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                adaptadorApunte = new RecyclerViewAdapterApunte(apuntesPreview);
+                adaptadorApunte = new RecyclerViewAdapterApunte(listaMaterias);
                 recyclerViewApunte.setAdapter(adaptadorApunte);
             };
-        }, 500);
+        }, 50);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) { //se espera a que la activity terminé y mande una señal que diga que terminó
+        if (requestCode == 1) { // el "1" es el numero que pasaste como parametro
+            if(resultCode == MateriasActivity.RESULT_OK){
+                String result=data.getStringExtra("datos");
+                // tu codigo para continuar procesando
+               if(result.equals("termine")){
+                   actualizarApuntes();
+               }
+            }
+            if (resultCode == MateriasActivity.RESULT_CANCELED) {
+                // código si no hay resultado
+            }
+        }
     }
 
 }

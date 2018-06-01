@@ -7,17 +7,4 @@
     tools:context=".MateriasPrincipalActivity">
 
 
-    <Button
-        android:id="@+id/button5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="Button" />
-
-    <fragment android:name="co.edu.udea.studyapp.FragmentPrueba"
-        android:id="@+id/list"
-        android:layout_weight="1"
-        android:layout_width="0dp"
-        android:layout_height="match_parent" />
-
 </LinearLayout>

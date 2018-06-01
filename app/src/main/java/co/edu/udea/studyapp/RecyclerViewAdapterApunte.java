@@ -11,6 +11,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import co.edu.udea.studyapp.data.Apunte;
+import co.edu.udea.studyapp.data.Materia;
 
 public class RecyclerViewAdapterApunte extends RecyclerView.Adapter<RecyclerViewAdapterApunte.ViewHolder> {
 
@@ -44,9 +45,9 @@ public class RecyclerViewAdapterApunte extends RecyclerView.Adapter<RecyclerView
         }
     }
 
-    public List<Apunte> apuntesLista;
+    public List<Materia> apuntesLista;
 
-    public RecyclerViewAdapterApunte(List<Apunte> apuntesLista){
+    public RecyclerViewAdapterApunte(List<Materia> apuntesLista){
         this.apuntesLista = apuntesLista;
     }
 
@@ -62,10 +63,10 @@ public class RecyclerViewAdapterApunte extends RecyclerView.Adapter<RecyclerView
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        holder.materia.setText(apuntesLista.get(position).getMateria());
-        holder.titulo.setText(apuntesLista.get(position).getTitulo());
+        holder.materia.setText(apuntesLista.get(position).getNombre());
+        holder.titulo.setText(apuntesLista.get(position).getFechaDeCreacion());
         holder.descripcion.setText(apuntesLista.get(position).getDescripcion());
-        holder.fecha.setText(apuntesLista.get(position).getFecha());
+       // holder.fecha.setText(apuntesLista.get(position).getNombreCreador());
 
     }
 

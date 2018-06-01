@@ -15,7 +15,7 @@ public class Materia {
         this.fechaDeCreacion=f;
         this.nombreCreador=nC;
         this.imagen=i;
-        this.descripcion=d;
+        this.setDescripcion(d);
     }
 
 
@@ -57,7 +57,16 @@ public class Materia {
         values.put(MateriaContract.materiaEntry.FECHACREACION, fechaDeCreacion);
         values.put(MateriaContract.materiaEntry.NOMBRECREADOR, nombreCreador);
         values.put(MateriaContract.materiaEntry.IMAGEN, imagen);
-        values.put(MateriaContract.materiaEntry.DESCRIPCION, descripcion);
+        values.put(MateriaContract.materiaEntry.DESCRIPCION, getDescripcion());
         return values;
+    }
+
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 }
