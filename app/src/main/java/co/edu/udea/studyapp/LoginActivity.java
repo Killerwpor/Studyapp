@@ -1,8 +1,13 @@
 package co.edu.udea.studyapp;
 
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,6 +18,9 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -46,8 +54,10 @@ public class LoginActivity extends AppCompatActivity {
                         new FacebookCallback<LoginResult>() {
                             @Override
                             public void onSuccess(LoginResult loginResult) {
+                                Log.d("LOGIN","se logró");
                                 Intent intent = new Intent (getApplicationContext(), MainActivity.class);
                                 startActivity(intent);
+                            finish();
                             }
 
                             @Override
@@ -57,11 +67,13 @@ public class LoginActivity extends AppCompatActivity {
 
                             @Override
                             public void onError(FacebookException exception) {
-                                // App code
+                                Log.d("LOGIN","MENSAJE: "+exception);
                             }
                         });
             }
         });
+
+
     }
 
     @Override

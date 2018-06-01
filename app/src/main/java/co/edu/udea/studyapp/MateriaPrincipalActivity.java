@@ -1,13 +1,24 @@
 package co.edu.udea.studyapp;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import java.io.File;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import co.edu.udea.studyapp.data.Apunte;
+import co.edu.udea.studyapp.data.dbHelper;
+import pl.aprilapps.easyphotopicker.DefaultCallback;
 import pl.aprilapps.easyphotopicker.EasyImage;
 import pl.tajchert.nammu.Nammu;
 import pl.tajchert.nammu.PermissionCallback;
@@ -15,6 +26,9 @@ import pl.tajchert.nammu.PermissionCallback;
 public class MateriaPrincipalActivity extends AppCompatActivity {
 
     private static final String PHOTOS_KEY = "Studyapp";
+    private ArrayList<File> photos = new ArrayList<>();
+    String nombreMateria;
+    FloatingActionButton botonCalendario;
 
     // protected RecyclerView recyclerView;
 
@@ -29,8 +43,22 @@ public class MateriaPrincipalActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_configuracion);
         Nammu.init(this);
-        String nombreMateria=getIntent().getExtras().getString("nombreMateria");
-        this.setTitle(nombreMateria);
+        nombreMateria=getIntent().getExtras().getString("nombreMateria");
+        if(nombreMateria!=null){
+            this.setTitle(nombreMateria);
+       }
+
+botonCalendario=findViewById(R.id.botonCalendario);
+
+        botonCalendario.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), calendarioActivity.class);
+                startActivity(intent);
+
+
+            }
+        });
 
         TextView textView7 = findViewById(R.id.textView7);
 
@@ -79,6 +107,41 @@ public class MateriaPrincipalActivity extends AppCompatActivity {
 
 
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        EasyImage.handleActivityResult(requestCode, resultCode, data, this, new DefaultCallback() {
+            @Override
+            public void onImagePickerError(Exception e, EasyImage.ImageSource source, int type) {
+                //Some error handling
+            }
+
+            @Override
+            public void onImagesPicked(List<File> imagesFiles, EasyImage.ImageSource source, int type) {
+                //Handle the images
+                onPhotosReturned(imagesFiles);
+
+            }
+        });
+    }
+
+    private void onPhotosReturned(List<File> returnedPhotos) {
+        photos.addAll(returnedPhotos);
+        Log.d("ERROR","ENTRO AL METODO0");
+        Apunte a=new Apunte("Apunte","titulo","descripcion","fecha",returnedPhotos.get(0).toString());
+        dbHelper db=new dbHelper(getApplicationContext());
+        db.guardarApunte(a);
+
+
+        Intent intent = new Intent(getApplicationContext(), ApuntesActivity.class);
+         //intent.putExtra("fotos", (Serializable) returnedPhotos);
+        startActivity(intent);
+
+
+    }
+
 }
 
 

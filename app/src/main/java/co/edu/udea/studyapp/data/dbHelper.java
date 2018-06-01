@@ -76,6 +76,20 @@ public class dbHelper extends SQLiteOpenHelper {
                         null);
     }
 
+    public Cursor obtenerTodosLosApuntes() {
+
+        String columns[] = new String[]{ApunteContract.ApunteEntry.FECHA, ApunteContract.ApunteEntry.TITULO};
+        return getReadableDatabase()
+                .query(
+                        ApunteContract.ApunteEntry.TABLE_NAME,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null);
+    }
+
 
     public Cursor obtenerTodasLasMaterias() {
         return getReadableDatabase()

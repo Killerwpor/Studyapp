@@ -13,6 +13,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -23,12 +24,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 import co.edu.udea.studyapp.data.Apunte;
+import co.edu.udea.studyapp.data.ApunteContract;
 import co.edu.udea.studyapp.data.Materia;
 import co.edu.udea.studyapp.data.MateriaContract;
 import co.edu.udea.studyapp.data.dbHelper;
@@ -36,32 +39,32 @@ import co.edu.udea.studyapp.data.dbHelper;
 
 
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class ApuntesActivity extends AppCompatActivity {
 
     CardView card;
     private FloatingActionButton botonAgregar,botonEliminar;
     private RecyclerView recyclerViewApunte;
-    private RecyclerViewAdapterApunte adaptadorApunte;
-    private List<Materia> listaMaterias;
+    private RecyclerViewAdapterFoto adaptadorApunte;
+    private List<Apunte> listaMaterias;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setContentView(R.layout.activity_apuntes);
+
 
         recyclerViewApunte = findViewById(R.id.content_main_recycler_preview);
-       botonAgregar=findViewById(R.id.botonAgregar);
-       botonEliminar=findViewById(R.id.botonEliminar);
-       card=findViewById(R.id.card);
+        botonAgregar=findViewById(R.id.botonAgregar);
+        //botonEliminar=findViewById(R.id.botonEliminar);
+        card=findViewById(R.id.card);
 
 
         botonAgregar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent (getApplicationContext(), MateriasActivity.class);
+                Intent intent = new Intent (getApplicationContext(), MateriaPrincipalActivity.class);
                 startActivityForResult(intent,1);
                 actualizarApuntes();
 
@@ -74,6 +77,7 @@ public class MainActivity extends AppCompatActivity
 
 
 
+/*
         botonEliminar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -84,22 +88,15 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+*/
 
 
 
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
 
 
         //aquí se actualiza la lista de materias que aparece en el main
-      actualizarApuntes();
+       actualizarApuntes();
 
         //Aquí se piden permisos para usar la camara
 
@@ -118,15 +115,7 @@ public class MainActivity extends AppCompatActivity
 
 
 
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
+
 
 
 
@@ -154,32 +143,6 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        
-        int id = item.getItemId();
-
-        Intent intent = null;
-
-        if (id == R.id.nav_materias) {
-            intent = new Intent (getApplicationContext(), MainActivity.class);
-        } else if (id == R.id.nav_perfil) {
-            intent = new Intent(getApplicationContext(), PerfilActivity.class);
-        } else if (id == R.id.nav_configuracion) {
-            intent = new Intent (getApplicationContext(), ApuntesActivity.class);
-        } else if (id == R.id.nav_cerrar_sesion) {
-            intent = new Intent (getApplicationContext(), LoginActivity.class);
-        }
-
-        if(intent != null){
-            startActivity(intent);
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
 
     private void obtenerApuntesPreview() {
 
@@ -187,19 +150,25 @@ public class MainActivity extends AppCompatActivity
         dbHelper db = new dbHelper(getApplicationContext());
         String nombre, fecha, nombreCreador, imagen, descripcion;
         Uri fotoUri;
-        Cursor c = db.obtenerTodasLasMaterias();
-        Materia ma;
+        Cursor c = db.obtenerTodosLosApuntes();
+        Apunte ap;
+
         while (c.moveToNext()) { //se obtiene nombre, precio, foto e ingredientes por registro, por eso esta en un while
-            nombre = c.getString(c.getColumnIndex(MateriaContract.materiaEntry.NOMBRE));
-            fecha = c.getString(c.getColumnIndex(MateriaContract.materiaEntry.FECHACREACION));
-            imagen = c.getString(c.getColumnIndex(MateriaContract.materiaEntry.IMAGEN));
-            descripcion = c.getString(c.getColumnIndex(MateriaContract.materiaEntry.DESCRIPCION));
+    //        nombre = c.getString(c.getColumnIndex(ApunteContract.ApunteEntry.MATERIA));
+//            fecha = c.getString(c.getColumnIndex(MateriaContract.materiaEntry.FECHACREACION));
+          imagen = c.getString(c.getColumnIndex(ApunteContract.ApunteEntry.IMAGEN));
+      //      descripcion = c.getString(c.getColumnIndex(MateriaContract.materiaEntry.DESCRIPCION));
             // fotoUri = Uri.parse(foto); //se convierte la foto a Uri
-            nombreCreador = c.getString(c.getColumnIndex(MateriaContract.materiaEntry.NOMBRECREADOR));
-            ma = new Materia(nombre, fecha, nombreCreador, imagen, descripcion);
-            listaMaterias.add(ma);
+        //    nombreCreador = c.getString(c.getColumnIndex(MateriaContract.materiaEntry.NOMBRECREADOR));
+            ap = new Apunte("Materia","Titulo","descripción","fecha",imagen);
+            Log.d("ERRORFOTO","imagen: "+imagen);
+            listaMaterias.add(ap);
+
 
         }
+
+       // ap = new Apunte("Materia","Titulo","descripción","fecha","imagen");
+
     }
 
     private void actualizarApuntes() {
@@ -207,17 +176,20 @@ public class MainActivity extends AppCompatActivity
         new Handler().postDelayed(new Runnable(){
             public void run(){
                 recyclerViewApunte.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                adaptadorApunte = new RecyclerViewAdapterApunte(listaMaterias);
+                adaptadorApunte = new RecyclerViewAdapterFoto(listaMaterias);
+
+              /*
                 adaptadorApunte.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                      String nombreMateria=listaMaterias.get(recyclerViewApunte.getChildAdapterPosition(view)).getNombre();
-                       Intent intent = new Intent (getApplicationContext(), MateriaPrincipalActivity.class);
-                       intent.putExtra("nombreMateria",nombreMateria);
-                       startActivity(intent);
+                        String nombreMateria=listaMaterias.get(recyclerViewApunte.getChildAdapterPosition(view)).getMateria();
+                        Intent intent = new Intent (getApplicationContext(), MateriaPrincipalActivity.class);
+                        intent.putExtra("nombreMateria",nombreMateria);
+                        startActivity(intent);
 
                     }
                 });
+                */
                 recyclerViewApunte.setAdapter(adaptadorApunte);
             };
         }, 50);
@@ -229,9 +201,9 @@ public class MainActivity extends AppCompatActivity
             if(resultCode == MateriasActivity.RESULT_OK){
                 String result=data.getStringExtra("datos");
                 // tu codigo para continuar procesando
-               if(result.equals("termine")){
-                   actualizarApuntes();
-               }
+                if(result.equals("termine")){
+                    actualizarApuntes();
+                }
             }
             if (resultCode == MateriasActivity.RESULT_CANCELED) {
                 // código si no hay resultado
