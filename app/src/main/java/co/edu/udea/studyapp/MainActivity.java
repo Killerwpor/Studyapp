@@ -164,8 +164,6 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_materias) {
             intent = new Intent (getApplicationContext(), MainActivity.class);
-        } else if (id == R.id.nav_grupos) {
-            intent = new Intent (getApplicationContext(), LoginActivity.class);
         } else if (id == R.id.nav_perfil) {
             intent = new Intent(getApplicationContext(), PerfilActivity.class);
         } else if (id == R.id.nav_configuracion) {
