@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.TextView;
 
 import pl.aprilapps.easyphotopicker.EasyImage;
 import pl.tajchert.nammu.Nammu;
@@ -30,6 +31,12 @@ public class MateriaPrincipalActivity extends AppCompatActivity {
         Nammu.init(this);
         String nombreMateria=getIntent().getExtras().getString("nombreMateria");
         this.setTitle(nombreMateria);
+
+        TextView textView7 = findViewById(R.id.textView7);
+
+        FontManager fontManager = new FontManager();
+        fontManager.changeFont2(textView7, "RobotoCondensed-Bold", getApplicationContext());
+        textView7.setTextSize(30);
 
         int permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
         if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
