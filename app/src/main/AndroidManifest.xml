@@ -54,7 +54,7 @@
             android:name=".MateriaEspecificaActivity"
             android:label="Computación movil" />
         <activity android:name=".GruposActivity" />
-        <activity android:name=".ConfiguracionActivity" />
+        <activity android:name=".MateriaPrincipalActivity" />
         <activity android:name=".MateriasActivity"
             android:theme="@style/Base.Theme.AppCompat.Dialog"
             android:label="Agregar nueva materia"

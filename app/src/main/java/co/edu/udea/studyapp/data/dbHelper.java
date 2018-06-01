@@ -16,13 +16,12 @@ public class dbHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
 
             sqLiteDatabase.execSQL("CREATE TABLE " + MateriaContract.materiaEntry.TABLE_NAME + " ("
-                    + MateriaContract.materiaEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                    + MateriaContract.materiaEntry.NOMBRE + " TEXT NOT NULL,"
+                    + MateriaContract.materiaEntry.NOMBRE + " TEXT PRIMARY KEY, "
                     + MateriaContract.materiaEntry.NOMBRECREADOR + " TEXT NOT NULL,"
                     + MateriaContract.materiaEntry.DESCRIPCION + " TEXT NOT NULL,"
                     + MateriaContract.materiaEntry.FECHACREACION + " TEXT NOT NULL,"
                     + MateriaContract.materiaEntry.IMAGEN + " TEXT NOT NULL,"
-                    + "UNIQUE (" + MateriaContract.materiaEntry._ID + "))");
+                    + "UNIQUE (" + MateriaContract.materiaEntry.NOMBRE + "))");
 
 
     }

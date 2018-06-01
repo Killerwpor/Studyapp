@@ -1,25 +1,17 @@
 package co.edu.udea.studyapp;
 
 import android.Manifest;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
-import pl.aprilapps.easyphotopicker.DefaultCallback;
 import pl.aprilapps.easyphotopicker.EasyImage;
 import pl.tajchert.nammu.Nammu;
 import pl.tajchert.nammu.PermissionCallback;
 
-public class ConfiguracionActivity extends AppCompatActivity {
+public class MateriaPrincipalActivity extends AppCompatActivity {
 
     private static final String PHOTOS_KEY = "Studyapp";
 
@@ -36,6 +28,8 @@ public class ConfiguracionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_configuracion);
         Nammu.init(this);
+        String nombreMateria=getIntent().getExtras().getString("nombreMateria");
+        this.setTitle(nombreMateria);
 
         int permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
         if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
@@ -64,14 +58,14 @@ public class ConfiguracionActivity extends AppCompatActivity {
         findViewById(R.id.floatingActionButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EasyImage.openCamera(ConfiguracionActivity.this, 0);
+                EasyImage.openCamera(MateriaPrincipalActivity.this, 0);
             }
         });
 
         findViewById(R.id.floatingActionButton3).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EasyImage.openGallery(ConfiguracionActivity.this,0);
+                EasyImage.openGallery(MateriaPrincipalActivity.this,0);
             }
         });
 

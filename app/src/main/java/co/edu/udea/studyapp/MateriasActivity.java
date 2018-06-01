@@ -25,6 +25,8 @@ public class MateriasActivity extends AppCompatActivity {
         botonGuardar=findViewById(R.id.botonAgregar);
         campoNombre=findViewById(R.id.campoNombre);
 
+
+
         botonGuardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -36,7 +38,7 @@ public class MateriasActivity extends AppCompatActivity {
                 returnIntent.putExtra("datos","termine");
                 setResult(Activity.RESULT_OK,returnIntent);
                 finish();
-                finish();
+
 
             }
         });

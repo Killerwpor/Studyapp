@@ -1,9 +1,6 @@
 package co.edu.udea.studyapp;
 
 import android.Manifest;
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -11,12 +8,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -29,18 +25,17 @@ import android.view.MenuItem;
 
 import java.util.ArrayList;
 import java.util.List;
-
-
 import co.edu.udea.studyapp.data.Materia;
 import co.edu.udea.studyapp.data.MateriaContract;
 import co.edu.udea.studyapp.data.dbHelper;
-import pl.tajchert.nammu.PermissionListener;
+
 
 
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    CardView card;
     private FloatingActionButton botonAgregar,botonEliminar;
     private RecyclerView recyclerViewApunte;
     private RecyclerViewAdapterApunte adaptadorApunte;
@@ -56,7 +51,7 @@ public class MainActivity extends AppCompatActivity
         recyclerViewApunte = findViewById(R.id.content_main_recycler_preview);
        botonAgregar=findViewById(R.id.botonAgregar);
        botonEliminar=findViewById(R.id.botonEliminar);
-
+       card=findViewById(R.id.card);
 
 
         botonAgregar.setOnClickListener(new View.OnClickListener() {
@@ -65,6 +60,7 @@ public class MainActivity extends AppCompatActivity
                 Intent intent = new Intent (getApplicationContext(), MateriasActivity.class);
                 startActivityForResult(intent,1);
                 actualizarApuntes();
+
 
             }
         });
@@ -168,7 +164,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_configuracion) {
             intent = new Intent (getApplicationContext(), MateriaEspecificaActivity.class);
         } else if (id == R.id.nav_cerrar_sesion) {
-            intent = new Intent (getApplicationContext(), ConfiguracionActivity.class);
+            intent = new Intent (getApplicationContext(), MateriaPrincipalActivity.class);
         }
 
         if(intent != null){
@@ -207,6 +203,16 @@ public class MainActivity extends AppCompatActivity
             public void run(){
                 recyclerViewApunte.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                 adaptadorApunte = new RecyclerViewAdapterApunte(listaMaterias);
+                adaptadorApunte.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                      String nombreMateria=listaMaterias.get(recyclerViewApunte.getChildAdapterPosition(view)).getNombre();
+                       Intent intent = new Intent (getApplicationContext(), MateriaPrincipalActivity.class);
+                       intent.putExtra("nombreMateria",nombreMateria);
+                       startActivity(intent);
+
+                    }
+                });
                 recyclerViewApunte.setAdapter(adaptadorApunte);
             };
         }, 50);
