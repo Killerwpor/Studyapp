@@ -10,6 +10,9 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import co.edu.udea.studyapp.data.Materia;
 import co.edu.udea.studyapp.data.dbHelper;
 
@@ -31,7 +34,8 @@ public class MateriasActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String nombre=campoNombre.getText().toString();
-                Materia m=new Materia(nombre,"31/05/2018/","UsuaroActual","imagen","Sin descripción"); //tring n, String f, String nC, String i, String d)
+                String date = new SimpleDateFormat("dd-MM-yyyy").format(Calendar.getInstance().getTime());
+                Materia m=new Materia(nombre,date,"UsuaroActual","imagen","Sin descripción"); //tring n, String f, String nC, String i, String d)
                dbHelper db=new dbHelper(getApplicationContext());
                db.guardarMateria(m);
                 Intent returnIntent = new Intent();

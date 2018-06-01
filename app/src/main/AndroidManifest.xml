@@ -50,14 +50,12 @@
         </activity>
         <activity android:name=".PerfilActivity" />
         <activity android:name=".RegistroActivity" />
-        <activity
-            android:name=".MateriaEspecificaActivity"
-            android:label="Computación movil" />
         <activity android:name=".MateriaPrincipalActivity" />
-        <activity android:name=".MateriasActivity"
-            android:theme="@style/Base.Theme.AppCompat.Dialog"
+        <activity
+            android:name=".MateriasActivity"
             android:label="Agregar nueva materia"
-            />
+            android:theme="@style/Base.Theme.AppCompat.Dialog" />
+        <activity android:name=".calendarioActivity"></activity>
     </application>
 
 </manifest>

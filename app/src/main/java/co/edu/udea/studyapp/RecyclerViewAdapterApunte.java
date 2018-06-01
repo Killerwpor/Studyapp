@@ -101,7 +101,7 @@ private View.OnClickListener listener;
         holder.materia.setText(apuntesLista.get(position).getNombre());
         holder.titulo.setText(apuntesLista.get(position).getFechaDeCreacion());
         holder.descripcion.setText(apuntesLista.get(position).getDescripcion());
-       // holder.fecha.setText(apuntesLista.get(position).getNombreCreador());
+       holder.fecha.setText("Fecha creación: "+apuntesLista.get(position).getNombreCreador());
 
     }
 

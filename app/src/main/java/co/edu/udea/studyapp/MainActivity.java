@@ -23,8 +23,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+
+import co.edu.udea.studyapp.data.Apunte;
 import co.edu.udea.studyapp.data.Materia;
 import co.edu.udea.studyapp.data.MateriaContract;
 import co.edu.udea.studyapp.data.dbHelper;
@@ -73,7 +77,10 @@ public class MainActivity extends AppCompatActivity
         botonEliminar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                actualizarApuntes();
+                dbHelper db=new dbHelper(getApplicationContext());
+                String date = new SimpleDateFormat("dd-MM-yyyy").format(Calendar.getInstance().getTime());
+                Apunte a=new Apunte("Logica","titulo","ninguna",date,"ninguna");
+                db.guardarApunte(a);
             }
         });
 
@@ -162,7 +169,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_perfil) {
             intent = new Intent(getApplicationContext(), PerfilActivity.class);
         } else if (id == R.id.nav_configuracion) {
-            intent = new Intent (getApplicationContext(), MateriaEspecificaActivity.class);
+            intent = new Intent (getApplicationContext(), calendarioActivity.class);
         } else if (id == R.id.nav_cerrar_sesion) {
             intent = new Intent (getApplicationContext(), MateriaPrincipalActivity.class);
         }

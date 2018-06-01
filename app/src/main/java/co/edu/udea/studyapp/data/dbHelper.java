@@ -23,6 +23,15 @@ public class dbHelper extends SQLiteOpenHelper {
                     + MateriaContract.materiaEntry.IMAGEN + " TEXT NOT NULL,"
                     + "UNIQUE (" + MateriaContract.materiaEntry.NOMBRE + "))");
 
+        sqLiteDatabase.execSQL("CREATE TABLE " + ApunteContract.ApunteEntry.TABLE_NAME + " ("
+                + ApunteContract.ApunteEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + ApunteContract.ApunteEntry.MATERIA + " TEXT NOT NULL,"
+                + ApunteContract.ApunteEntry.TITULO+ " TEXT NOT NULL,"
+                + ApunteContract.ApunteEntry.FECHA + " TEXT NOT NULL,"
+                + ApunteContract.ApunteEntry.DESCRIPCION + " TEXT NOT NULL,"
+                + ApunteContract.ApunteEntry.IMAGEN + " TEXT NOT NULL,"
+                + "UNIQUE (" + ApunteContract.ApunteEntry._ID + "))");
+
 
     }
 
@@ -41,6 +50,32 @@ public class dbHelper extends SQLiteOpenHelper {
                 m.toContentValues());
 
     }
+
+    public long guardarApunte(Apunte a) {
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+
+        return sqLiteDatabase.insert(
+                ApunteContract.ApunteEntry.TABLE_NAME,
+                null,
+                a.toContentValues());
+
+    }
+
+
+    public Cursor obtenerTodosLasFechasApuntes() {
+
+        String columns[] = new String[]{ApunteContract.ApunteEntry.FECHA, ApunteContract.ApunteEntry.TITULO};
+        return getReadableDatabase()
+                .query(
+                        ApunteContract.ApunteEntry.TABLE_NAME,
+                        columns,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null);
+    }
+
 
     public Cursor obtenerTodasLasMaterias() {
         return getReadableDatabase()
