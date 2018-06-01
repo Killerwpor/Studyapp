@@ -16,9 +16,10 @@
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
         android:clickable="true"
+        app:backgroundTint="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@android:drawable/ic_delete" />
+        app:srcCompat="@android:drawable/ic_menu_delete" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/botonAgregar"
@@ -28,9 +29,10 @@
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:clickable="true"
+        app:backgroundTint="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@android:drawable/ic_input_add" />
+        app:srcCompat="@android:drawable/ic_menu_add" />
 
     <LinearLayout
         android:id="@+id/content_main_linear_layout_materias_preview"

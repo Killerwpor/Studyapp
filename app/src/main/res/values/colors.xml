@@ -6,7 +6,7 @@
     <color name="green">#3F51B5</color>
     <color name="pink">#3F51B5</color>
     <color name="colorPrimaryDark">#3b959f</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#b99f67</color>
     <array name="reds">
         <item>@color/md_red_500</item>
         <item>@color/md_red_50</item>
