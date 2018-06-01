@@ -42,6 +42,11 @@ private View.OnClickListener listener;
             this.descripcion = (TextView) itemView.findViewById(R.id.item_apunte_descripcion);
             this.fecha = (TextView) itemView.findViewById(R.id.item_apunte_fecha);
 
+            FontManager fontManager = new FontManager();
+            fontManager.changeFont2(this.materia, "RobotoCondensed-Bold", context);
+            fontManager.changeFont2(this.titulo, "RobotoCondensed-Bold", context);
+            fontManager.changeFont2(this.descripcion, "RobotoCondensed-Light", context);
+            fontManager.changeFont2(this.fecha, "RobotoCondensed-Bold", context);
 
            /*
             itemView.setOnClickListener(new View.OnClickListener(){

@@ -55,7 +55,8 @@
             android:name=".MateriasActivity"
             android:label="Agregar nueva materia"
             android:theme="@style/Base.Theme.AppCompat.Dialog" />
-        <activity android:name=".calendarioActivity"></activity>
+        <activity android:name=".calendarioActivity" />
+        <activity android:name=".SplashScreenActivity"></activity>
     </application>
 
 </manifest>
