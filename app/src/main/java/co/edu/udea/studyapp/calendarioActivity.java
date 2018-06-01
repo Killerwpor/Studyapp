@@ -47,12 +47,14 @@ public class calendarioActivity extends AppCompatActivity {
       //  Log.d("FECHA","Fecha: "+date);
         dbHelper db = new dbHelper(getApplicationContext());
         Cursor c=db.obtenerTodosLasFechasApuntes();
-
+/*
         while (c.moveToNext()) { //se marca en el calendario la fecha del apunte tomado //se pintan todas las fechas del calendario con algun apunte en esa fecha
            String fecha = c.getString(c.getColumnIndex(ApunteContract.ApunteEntry.FECHA));
-            String titulo = c.getString(c.getColumnIndex(ApunteContract.ApunteEntry.TITULO));
-            myCalendar.addEvent(fecha, "8:00", "8:15", titulo);
+           // String titulo = c.getString(c.getColumnIndex(ApunteContract.ApunteEntry.TITULO));
+
         }
+        */
+        myCalendar.addEvent("01-06-2018", "8:00", "8:15", "titulo");
         myCalendar.showMonthView();
     }
 }

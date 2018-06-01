@@ -64,7 +64,7 @@ public class dbHelper extends SQLiteOpenHelper {
 
     public Cursor obtenerTodosLasFechasApuntes() {
 
-        String columns[] = new String[]{ApunteContract.ApunteEntry.FECHA, ApunteContract.ApunteEntry.TITULO};
+        String columns[] = new String[]{ApunteContract.ApunteEntry.FECHA};
         return getReadableDatabase()
                 .query(
                         ApunteContract.ApunteEntry.TABLE_NAME,
